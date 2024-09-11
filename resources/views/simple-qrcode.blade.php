@@ -4,8 +4,9 @@
 	<title>Simple Qrcode</title>
 </head>
 <body>
-	
-	<img src='{{ asset($path_codeqr) }}' />
-
+	<div style="text-align: center; top: 150px; padding-top: 100px;">
+        <!-- On affiche le code QR au format SVG -->
+	    {{ $qrcode }}
+    </div>
 </body>
 </html>
