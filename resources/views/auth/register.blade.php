@@ -1,52 +1,68 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <!-- Nom -->
-        <div>
-            <x-input-label for="nom" :value="__('Nom de famille')" />
-            <x-text-input id="nom" class="block mt-1 w-full" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
-            <x-input-error :messages="$errors->get('nom')" class="mt-2" />
+    <div class="relative flex flex-col justify-center min-h-screen overflow-hidden">
+        <div
+            class="w-full  m-auto bg-white dark:bg-slate-800/60 rounded shadow-lg ring-2 ring-slate-300/50 dark:ring-slate-700/50 lg:max-w-md">
+            <div class="text-center p-6 bg-slate-900 rounded-t">
+                <a href="index.html"><img src="assets/images/logo-sm.png" alt="" class="w-14 h-14 mx-auto mb-2"></a>
+                <h3 class="font-semibold text-white text-xl mb-1">Bienvenu(e) sur <span>G-UserApp</h3>
+                <p class="text-xs text-slate-400">Inscrivez-vous pour commencer à votre équipe.</p>
+            </div>
+
+            <form method="POST" action="{{ route('login') }}" class="p-6">
+                @csrf
+                <div>
+                    <label for="nom" class="font-medium text-sm text-slate-600 dark:text-slate-400">Nom de famille</label>
+                    <input type="text" id="nom" name="nom" :value="old('nom')" :messages="$errors->get('nom')"
+                        class="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
+                        placeholder="Votre nom de famille" required>
+                </div>
+                <div class="mt-4">
+                    <label for="email" class="font-medium text-sm text-slate-600 dark:text-slate-400">Adresse
+                        mail</label>
+                    <input type="email" id="email" name="email" :value="old('email')" :messages="$errors->get('email')"
+                        class="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
+                        placeholder="Votre adresse mail" required>
+                </div>
+                <div class="mt-4">
+                    <label for="password" class="font-medium text-sm text-slate-600 dark:text-slate-400">Mot de
+                        passe</label>
+                    <input type="password" id="password" name="password" :messages="$errors->get('password')"
+                        class="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
+                        placeholder="Votre mot de passe" required>
+                </div>
+
+                <div class="mt-4">
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            href="{{ route('password.request') }}">
+                            {{ __('Mot de passe oublié ?') }}
+                        </a>
+                    @endif
+                </div>
+
+                <!-- Remember Me -->
+                <div class="block mt-4">
+                    <label for="remember_me" class="inline-flex items-center">
+                        <input id="remember_me" type="checkbox"
+                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                            name="remember">
+                        <span class="ms-2 text-sm text-gray-600">{{ __('Se souvenir de moi') }}</span>
+                    </label>
+                </div>
+                <div class="mt-6">
+                    <button
+                        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                        S'inscrire
+                    </button>
+                </div>
+                
+            </form>
+            <p class="mb-5 text-sm font-medium text-center text-slate-500"> Déjà inscrit? <a
+                    href="{{ route('login') }}" class="font-medium text-blue-600 hover:underline">Connectez-vous</a>.
+            </p>
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Adresse mail')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Mot de passe')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirmez le mot de passe')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Déjà un compte?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Inscription') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>

@@ -1,25 +1,43 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
-
+    
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+    <div class="relative flex flex-col justify-center min-h-screen overflow-hidden">
+        <div
+            class="w-full  m-auto bg-white dark:bg-slate-800/60 rounded shadow-lg ring-2 ring-slate-300/50 dark:ring-slate-700/50 lg:max-w-md">
+            <div class="text-center p-6 bg-slate-900 rounded-t">
+                <a href="index.html"><img src="assets/images/logo-sm.png" alt="" class="w-14 h-14 mx-auto mb-2"></a>
+                <h3 class="font-semibold text-white text-xl mb-1"><span>G-UserApp</h3>
+                <p class="text-xs text-slate-400">Réinitialisation de votre mot de passe.</p>
+            </div>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <form method="POST" action="{{ route('password.email') }}" class="p-6">
+                @csrf
+                <div>
+                    <label for="email" class="font-medium text-sm text-slate-600 dark:text-slate-400">Adresse
+                        mail</label>
+                    <input type="email" id="email" name="email" :value="old('email')"
+                        :messages="$errors->get('email')"
+                        class="form-input w-full rounded-md mt-1 border border-slate-300/60 dark:border-slate-700 dark:text-slate-300 bg-transparent px-3 py-1 focus:outline-none focus:ring-0 placeholder:text-slate-400/70 placeholder:font-normal placeholder:text-sm hover:border-slate-400 focus:border-primary-500 dark:focus:border-primary-500  dark:hover:border-slate-700"
+                        placeholder="Votre adresse mail" required>
+                </div>
+              
+                <div class="mt-6">
+                    <button
+                        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                        Email Password Reset Link
+                    </button>
+                </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+                <div class="mt-5 mb-2 text-sm text-black-100">
+                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                </div>
+            
+                
+            </form>
+          
         </div>
-    </form>
+    </div>
+
 </x-guest-layout>
