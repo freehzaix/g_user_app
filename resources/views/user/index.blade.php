@@ -16,8 +16,7 @@
                 @endforeach
 
                 @if (session('status'))
-                    <div class="text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                        role="alert">
+                    <div class="mt-3 mb-1 py-4 px-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                         <span class="font-medium">{{ session('status') }}</span>
                     </div>
                 @endif
@@ -52,12 +51,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $row)
+                        @foreach ($users as $user)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    @if ($row->qrcode == null)
-                                        <a href="{{ route('generate-qrcode', $row->id) }}"
+                                    @if ($user->qrcode == null)
+                                        <a href="{{ route('generate-qrcode', $user->id) }}"
                                             class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 
                                                 focus:outline-none bg-white rounded-lg border border-gray-200 
                                                 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 
@@ -67,26 +66,26 @@
                                             Générer
                                         </a>
                                     @else
-                                        <a href="{{ route('generate-qrcode', $row->id) }}">
-                                            <img src="{{ asset($row->qrcode) }}" height="40px" width="40px" />
+                                        <a href="{{ route('generate-qrcode', $user->id) }}">
+                                            <img src="{{ asset($user->qrcode) }}" height="40px" width="40px" />
                                         </a>
                                     @endif
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $row->nom }}
+                                    {{ $user->nom }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $row->prenom }}
+                                    {{ $user->prenom }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $row->telephone }}
+                                    {{ $user->telephone }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $row->email }}
+                                    {{ $user->email }}
                                 </td>
                                 <td class="px-6 py-4">
                                     @php
-                                        $roles = $row->getRoleNames();
+                                        $roles = $user->getRoleNames();
                                     @endphp
                                     @foreach ($roles as $row)
                                         <b>{{ $row }}</b> <br />
@@ -94,8 +93,8 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @role('Manager QRCode')
-                                        @if (!isset($row->qrcode))
-                                            <a href=""
+                                        @if (!isset($row->qrcode) && $user->qrcode != null)
+                                            <a href="{{ route('delete-qrcode', $user) }}"
                                                 class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
                                                 Supprimer le QRCode
                                             </a>

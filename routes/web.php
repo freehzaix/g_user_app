@@ -15,6 +15,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 Route::get('/dashboard/users/qrcode/{id}', [SimpleQRcodeController::class, 'generate'])->middleware(['auth', 'verified'])->name('generate-qrcode');
+Route::get('/dashboard/users/qrcode/delete/{id}', [SimpleQRcodeController::class, 'delete'])->middleware(['auth', 'verified'])->name('delete-qrcode');
 Route::get('/users/badged/{id}', [UserController::class, 'badged'])->name('badged');
 
 Route::middleware('auth')->group(function () {

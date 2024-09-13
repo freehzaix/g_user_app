@@ -34,4 +34,13 @@ class SimpleQRcodeController extends Controller
     // 	return view("simple-qrcode", compact('qrcode'));
     // }
 
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->qrcode = null;
+        $user->save();
+
+        return redirect()->route('users')->with('status', 'Le QR Code a été supprimé pour l\'utilisateur.');
+    }
+
 }
