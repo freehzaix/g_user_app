@@ -28,7 +28,7 @@
         <div class="main-menu-inner h-full w-[200px] my-4  fixed top-0 z-[99] rtl:left-0 rounded-lg transition delay-150 duration-300 ease-in-out">
             <div class="main-menu-inner-logo">
                 <div class="flex items-center">
-                    <a href="#" class="leading-[60px]">
+                    <a href="{{ route('dashboard') }}" class="leading-[60px]">
                         <img src="{{ asset('assets/images/logo-sm.png') }}" alt=""
                             class="inline-block dark:hidden h-[75px] ltr:ml-4 rtl:ml-0 rtl:mr-4">
                         <img src="{{ asset('assets/images/logo-sm.png') }}" alt=""
@@ -91,20 +91,7 @@
                         <i class="ti ti-chevrons-left text-3xl  top-icon"></i>
                     </button>
                 </div>
-                <div class="flex items-center md:w-[40%] lg:w-[30%] xl:w-[20%]">
-                    <div class="relative ltr:mr-2 rtl:mr-0 rtl:ml-2 hidden lg:mr-4 md:block lg:block w-full">
-                        <div
-                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center
-                    pl-3">
-                            <i class="ti ti-search text-gray-400 z-10"></i>
-                        </div>
-                        <input type="text" id="email-adress-icon"
-                            class="block w-full rounded-lg border border-slate-200 dark:border-slate-700/60 bg-slate-200/10 p-2
-                    pl-10 text-slate-600 dark:text-slate-400 outline-none focus:border-slate-300
-                    focus:ring-slate-300 dark:bg-slate-800/20 sm:text-sm"
-                            placeholder="Search..." />
-                    </div>
-                </div>
+                
                 <div class="order-1 ltr:ml-auto rtl:ml-0 rtl:mr-auto flex items-center md:order-2">
                    
                     <div class="mr-2 lg:mr-0 dropdown relative">
@@ -134,23 +121,18 @@
                             </div>
                             <ul class="py-1" aria-labelledby="navUserdata">
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('dashboard') }}"
                                         class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
                           dark:text-gray-200 dark:hover:bg-gray-900/20
-                          dark:hover:text-white">Dashboard</a>
+                          dark:hover:text-white">Tableau de bord</a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('profile.edit') }}"
                                         class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
                           dark:text-gray-200 dark:hover:bg-gray-900/20
-                          dark:hover:text-white">Settings</a>
+                          dark:hover:text-white">Profile</a>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
-                          dark:text-gray-200 dark:hover:bg-gray-900/20
-                          dark:hover:text-white">Earnings</a>
-                                </li>
+                              
                                 <li>
                                     <a href="{{ route('logout') }}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50
                           dark:text-gray-200 dark:hover:bg-gray-900/20
