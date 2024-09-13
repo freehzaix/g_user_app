@@ -7,17 +7,17 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class SimpleQRcodeController extends Controller
 {
-    
+
     public static function generate($uid)
     {
-        $path_codeqr = 'codes-qr/'. $uid . '.svg';
+        $path_codeqr = 'codes-qr/' . $uid . '.svg';
 
         QrCode::size(300)->generate(route('badged', $uid), public_path($path_codeqr));
 
         $user = User::find($uid);
         $user->qrcode = $path_codeqr;
         $user->update();
-        
+
         return redirect()->route('users')->with('status', 'Le QR Code a été généré pour l\'utilisateur.');
     }
 
@@ -29,7 +29,7 @@ class SimpleQRcodeController extends Controller
     //     ->backgroundColor(240, 245, 255)
     //     ->size(300)
     //     ->geo(5.306390, -4.003341);
-    	
+
     // 	# On envoie le QR code généré à la vue "simple-qrcode"
     // 	return view("simple-qrcode", compact('qrcode'));
     // }
@@ -40,7 +40,12 @@ class SimpleQRcodeController extends Controller
         $user->qrcode = null;
         $user->save();
 
+        $path_codeqr = 'codes-qr/' . $id . '.svg';
+
+        if (file_exists($path_codeqr)) {
+            unlink($path_codeqr);
+        }
+
         return redirect()->route('users')->with('status', 'Le QR Code a été supprimé pour l\'utilisateur.');
     }
-
 }
