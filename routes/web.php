@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Généré un QRCode personnalisé
+Route::get('/codeQRCustom', [SimpleQRcodeController::class, 'codeQRCustom']);
+Route::get('/codeQRWifi', [SimpleQRcodeController::class, 'codeQRWifi']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -4,6 +4,5 @@ G_user_app est une application qui a pour objectif de gérer les employés d'une
 
 #### En cours de développement...
 
-
 ### Laravel : Générer un QR-Code avec simple-qrcode
 👉🏾https://www.akilischool.com/cours/laravel-generer-un-qr-code-avec-simple-qrcode
